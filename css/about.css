@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+#about .about-content {
+  height: 1000px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Lexend, sans-serif;
+  font-size: 20px;
+  background-image: url("../imagini/shoecollection.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 100px 0 100px 0;
+}
+
+#about .about-content .about-text p {
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+  text-align: center;
+  width: 60%;
+  margin: 0 auto;
+  height: 500px;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+#about .about-text {
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+  text-align: center;
+  width: 60%;
+  margin: 0 auto;
+  height: 500px;
+  border-radius: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+#about .about-text h2 {
+  margin-top: 20px;
+  font-size: 40px;
+}
+
+#about {
+  height: 100%;
+  margin-top: -100px;
+}
+
+#footer {
+  margin-top: -100px;
+}

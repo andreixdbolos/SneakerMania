@@ -1,0 +1,225 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+#bar .bar-content {
+  height: 300px;
+  background-color: var(--crem);
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Lexend, sans-serif;
+  font-size: 50px;
+}
+
+#bar .bar-content .bar-text {
+  animation: fade-in 0.75s ease 0.15s forwards;
+  opacity: 0;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.linie {
+  background-color: rgb(143, 140, 140);
+  width: 95%;
+  height: 1px;
+  margin: 50px auto;
+}
+
+#products .container {
+  width: 30%;
+  height: 3 0%;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 50px;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.25s ease;
+}
+
+#products .container .product {
+  width: 100%;
+  height: 100%;
+  background-color: var(--crem);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.25s ease;
+  font-family: Lexend, sans-serif;
+  font-size: 20px;
+  text-align: center;
+  padding: 20px;
+  transition: all 0.25s ease;
+}
+
+#products .container .product:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px var(--gold);
+}
+
+#products .container .product .product-img img {
+  width: 400px;
+  border-radius: 10px;
+  transition: all 0.25s ease;
+}
+
+#products .container .box .box-content .img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.25s ease;
+}
+
+#products .container .box .box-content .name {
+  font-family: Lexend, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 10px;
+  transition: all 0.25s ease;
+}
+
+#products .container .box .box-content .pret {
+  font-family: Lexend, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+#products .container .box .box-content .img-container img {
+  width: 233.3px;
+  border-radius: 10px;
+  transition: all 0.25s ease;
+  margin-top: 10px;
+  height: 133.3px;
+}
+
+#products .container .box {
+  background-color: var(--crem);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  width: 300px;
+}
+
+#products .container .box .box-content .descriere {
+  font-family: Lexend, sans-serif;
+  color: #7e7c78;
+  /* margin-top: -45px; */
+  font-style: italic;
+}
+
+#products .container .box .box-content {
+  font-family: Lexend, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#products .container .box .box-content form input.hero-btn {
+  margin-top: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--gold);
+  color: var(--crem);
+  font-family: Lexend, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 0.4rem;
+  margin-bottom: 10px;
+}
+
+#products .container .box .box-content form input.hero-btn:hover {
+  background-color: #8e7140;
+  box-shadow: 0px 0px 20px 0px rgba(142, 113, 64, 0.5);
+}
+
+#products .container .box .box-content .elimina-produs img {
+  width: 28px;
+  position: absolute;
+  bottom: 10px;
+  right: 136px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
+.navbar .container .meniu .hamburger2 .middle-bar2 .top-bar2 {
+  background-color: var(--gold);
+  height: 3px;
+  width: 25px;
+  position: absolute;
+  bottom: 7px;
+}
+
+.navbar .container .meniu .hamburger2 .middle-bar2 {
+  background-color: var(--gold);
+  height: 3px;
+  width: 25px;
+  position: relative;
+}
+
+.navbar .container .meniu .hamburger2 .middle-bar2 .bottom-bar2 {
+  background-color: var(--gold);
+  height: 3px;
+  width: 25px;
+  position: absolute;
+  top: 7px;
+}
+
+.navbar .container .meniu .hamburger2 {
+  margin-top: 19px;
+  margin-left: 20px;
+  cursor: pointer;
+  position: relative;
+}
+
+.navbar .container .meniu .meniu-dpd .hamburger2 .meniu-admin {
+  /* display: none !important; */
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  right: -100px;
+  margin-top: 30px;
+  background-color: #505353;
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 1rem;
+  width: 260px;
+}
+
+.navbar .container .meniu .meniu-dpd .hamburger2 .meniu-admin li {
+  margin-bottom: 10px;
+}
+
+.navbar .container .meniu .meniu-dpd .hamburger2 .meniu-admin li a #istorie {
+  height: 20px;
+  width: 20px;
+  margin-left: 5px;
+}
+
+.navbar .container .meniu .meniu-dpd .hamburger2 .meniu-admin li a #elimina {
+  height: 20px;
+  width: 20px;
+  margin-left: 5px;
+}
+
+.visible {
+  visibility: visible;
+}
