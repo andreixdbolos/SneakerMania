@@ -79,14 +79,16 @@ function adauga_in_cos($con, $nume, $image_data) {
                 mysqli_stmt_bind_param($stmt, "ii", $user_id, $product_id);
                 mysqli_stmt_execute($stmt);
 
-                echo "Produsul a fost adăugat în coș!";
+                // echo "Produsul a fost adăugat în coș!";
             }
-        } else {
-            echo "Produsul nu există în magazin!";
-        }
-    } else {
-        echo "Trebuie să fii autentificat pentru a adăuga produse în coș!";
-    }
+        } 
+        // else {
+        //     echo "Produsul nu există în magazin!";
+        // }
+    } 
+    // else {
+    //     echo "Trebuie să fii autentificat pentru a adăuga produse în coș!";
+    // }
 }
 
 
@@ -99,18 +101,3 @@ function is_admin($con, $user_id) {
         return false;
     }
 }
-
-// function get_order_history($con, $user_id) {
-//     $order_history = array();
-
-//     $query = "SELECT * FROM orders WHERE user_id = $user_id";
-//     $result = mysqli_query($con, $query);
-
-//     if ($result) {
-//         while ($row = mysqli_fetch_assoc($result)) {
-//             $order_history[] = $row;
-//         }
-//     }
-
-//     return $order_history;
-// }

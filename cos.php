@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include("php/connection.php");
 include("php/functions.php");
 $user_data = check_login($con);
@@ -8,15 +9,27 @@ if (isset($_POST['update_quantity'])) {
     $cart_id = $_POST['cart_id'];
     $new_quantity = intval($_POST['update_quantity']);
 
+    // Check if the new quantity is zero, and if so, remove the item from the cart
+    if ($new_quantity === 0) {
+        $delete_query = "DELETE FROM cart WHERE id = $cart_id AND user_id = {$_SESSION['user_id']}";
+        $delete_result = mysqli_query($con, $delete_query);
+
+        // if ($delete_result) {
+        //     echo "Item removed from the cart successfully.";
+        // } else {
+        //     echo "Error removing item from the cart.";
+        // }
+    }
+
     // Update the quantity in the cart
     $update_query = "UPDATE cart SET quantity = $new_quantity WHERE id = $cart_id AND user_id = {$_SESSION['user_id']}";
     $update_result = mysqli_query($con, $update_query);
 
-    if ($update_result) {
-        echo "Quantity updated successfully.";
-    } else {
-        echo "Error updating quantity.";
-    }
+    // if ($update_result) {
+    //     echo "Quantity updated successfully.";
+    // } else {
+    //     echo "Error updating quantity.";
+    // }
 }
 
 if (isset($_POST['delete'])) {
@@ -26,13 +39,54 @@ if (isset($_POST['delete'])) {
     $delete_query = "DELETE FROM cart WHERE id = $cart_id AND user_id = {$_SESSION['user_id']}";
     $delete_result = mysqli_query($con, $delete_query);
 
-    if ($delete_result) {
-        echo "Item removed from the cart successfully.";
-    } else {
-        echo "Error removing item from the cart.";
-    }
+    // if ($delete_result) {
+    //     echo "Item removed from the cart successfully.";
+    // } else {
+    //     echo "Error removing item from the cart.";
+    // }
 }
 
+if (isset($_POST['place_order'])) {
+    // Get user ID
+    $user_id = $_SESSION['user_id'];
+
+    // Get total price from the cart
+    $total_query = "SELECT SUM(p.pret * c.quantity) AS total
+                    FROM cart c
+                    JOIN products p ON c.product_id = p.id
+                    WHERE c.user_id = $user_id";
+    $total_result = mysqli_query($con, $total_query);
+
+    if ($total_result && mysqli_num_rows($total_result) > 0) {
+        $total_row = mysqli_fetch_assoc($total_result);
+        $total_price = $total_row['total'];
+
+        // Generate a 10-digit random order number
+        $order_number = mt_rand(1000000000, 9999999999);
+
+        // Insert order into 'orders' table
+        $insert_order_query = "INSERT INTO orders (order_number, user_id, total_price) 
+                               VALUES ($order_number, $user_id, $total_price)";
+        $insert_order_result = mysqli_query($con, $insert_order_query);
+
+        if ($insert_order_result) {
+            // Clear the cart by deleting all items
+            $clear_cart_query = "DELETE FROM cart WHERE user_id = $user_id";
+            $clear_cart_result = mysqli_query($con, $clear_cart_query);
+
+            if ($clear_cart_result) {
+                echo "Order placed successfully. Order number: $order_number";
+            } else {
+                echo "Error clearing the cart.";
+            }
+        } else {
+            echo "Error placing the order.";
+        }
+    } 
+    else {
+        echo "Error calculating the total price.";
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -151,6 +205,11 @@ if (isset($_POST['delete'])) {
         <?php
     }
     ?>
+</div>
+<div class="div-payment">
+<form method="POST" action="">
+    <button type="submit" name="place_order" class="payment-btn">Place Order</button>
+</form>
 </div>
 
 <script src="remove.js"></script>

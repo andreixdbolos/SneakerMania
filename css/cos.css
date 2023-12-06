@@ -255,6 +255,32 @@ table button:hover {
   background-color: var(--gold);
 }
 
+.payment-btn {
+  background-color: var(--gold);
+  color: var(--crem);
+  font-family: Lexend, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  right: 0;
+}
+
+.payment-btn:hover {
+  background-color: #e7ae45;
+}
+
+.div-payment {
+  display: flex;
+  justify-content: center;
+  /* align the button to the right */
+  margin-top: 20px;
+}
+
 @media screen and (max-width: 768px) {
   th,
   td {
