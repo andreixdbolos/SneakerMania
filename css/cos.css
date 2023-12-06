@@ -249,10 +249,43 @@ table button {
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-bottom: 5px;
+  font-family: Lexend, sans-serif;
+  border-radius: 10px;
 }
 
 table button:hover {
   background-color: var(--gold);
+}
+
+.payment-form {
+  max-width: 600px;
+  margin: 20px auto;
+  background-color: var(--crem);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; /* Change this to space-between if you want extra space on the sides */
+  align-items: center;
+}
+
+.payment-form label {
+  font-family: Lexend, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  width: 25%; /* Adjust width as needed */
+  margin-bottom: 8px;
+}
+
+.payment-form input {
+  width: 60%; /* Adjust width as needed */
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid var(--gri);
+  border-radius: 5px;
+  font-family: Lexend, sans-serif;
+  font-size: 16px;
 }
 
 .payment-btn {
@@ -263,11 +296,10 @@ table button:hover {
   font-weight: 600;
   border: none;
   border-radius: 5px;
-  padding: 0.5rem 1rem;
+  padding: 10px 20px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 20px;
-  right: 0;
+  transition: background-color 0.3s ease;
+  width: 100%; /* Adjust width as needed */
 }
 
 .payment-btn:hover {
@@ -277,8 +309,8 @@ table button:hover {
 .div-payment {
   display: flex;
   justify-content: center;
-  /* align the button to the right */
   margin-top: 20px;
+  width: 100%; /* Adjust width as needed */
 }
 
 @media screen and (max-width: 768px) {

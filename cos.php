@@ -50,7 +50,16 @@ if (isset($_POST['place_order'])) {
     // Get user ID
     $user_id = $_SESSION['user_id'];
 
-    // Get total price from the cart
+    // Get user email from the session
+    $user_email = $user_data['user_name'];
+
+    // Get additional order information from the form
+    $name = mysqli_real_escape_string($con, $_POST['name']);
+    $surname = mysqli_real_escape_string($con, $_POST['surname']);
+    $address = mysqli_real_escape_string($con, $_POST['address']);
+    $phone_number = mysqli_real_escape_string($con, $_POST['phone_number']);
+
+    // Calculate total price
     $total_query = "SELECT SUM(p.pret * c.quantity) AS total
                     FROM cart c
                     JOIN products p ON c.product_id = p.id
@@ -65,8 +74,8 @@ if (isset($_POST['place_order'])) {
         $order_number = mt_rand(1000000000, 9999999999);
 
         // Insert order into 'orders' table
-        $insert_order_query = "INSERT INTO orders (order_number, user_id, total_price) 
-                               VALUES ($order_number, $user_id, $total_price)";
+        $insert_order_query = "INSERT INTO orders (order_number, user_id, total_price, name, surname, address, phone_number, user_email) 
+                               VALUES ($order_number, $user_id, $total_price, '$name', '$surname', '$address', '$phone_number', '$user_email')";
         $insert_order_result = mysqli_query($con, $insert_order_query);
 
         if ($insert_order_result) {
@@ -74,18 +83,8 @@ if (isset($_POST['place_order'])) {
             $clear_cart_query = "DELETE FROM cart WHERE user_id = $user_id";
             $clear_cart_result = mysqli_query($con, $clear_cart_query);
 
-            if ($clear_cart_result) {
-                echo "Order placed successfully. Order number: $order_number";
-            } else {
-                echo "Error clearing the cart.";
-            }
-        } else {
-            echo "Error placing the order.";
-        }
+        } 
     } 
-    else {
-        echo "Error calculating the total price.";
-    }
 }
 
 ?>
@@ -142,7 +141,7 @@ if (isset($_POST['place_order'])) {
         <tr>
             <th><div class="header-tabel">Nume</div></th>
             <th><div class="header-tabel">Imagine</div></th>
-            <th><div class="header-tabel">Quantity</div></th>
+            <th><div class="header-tabel">Cantitate</div></th>
             <th><div class="header-tabel">Pret</div></th>
             <th><div class="header-tabel">Action</div></th>
         </tr>
@@ -207,7 +206,21 @@ if (isset($_POST['place_order'])) {
     ?>
 </div>
 <div class="div-payment">
-<form method="POST" action="">
+<form method="POST" action="cos.php" class="payment-form">
+    <label for="name">Name:</label>
+    <input type="text" name="name" required>
+
+    <label for="surname">Surname:</label>
+    <input type="text" name="surname" required>
+
+    <label for="address">Address:</label>
+    <input type="text" name="address" required>
+
+    <label for="phone_number">Phone Number:</label>
+    <input type="text" name="phone_number" required>
+
+    <!-- Other form fields and buttons -->
+
     <button type="submit" name="place_order" class="payment-btn">Place Order</button>
 </form>
 </div>

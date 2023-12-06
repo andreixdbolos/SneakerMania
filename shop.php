@@ -72,7 +72,6 @@ if (isset($_POST['adauga'])) {
                     <ul class="hidden meniu-admin">
                     <li class="li-menu"><a href="add_product.php">Adauga produs <img id="plus" src="imagini/plus.png" alt=""></a></li>
                     <li class="li-menu"><a href="order_history.php">Order History <img id="istorie" src="imagini/history.png" alt=""></a></li>
-                    <li class="li-menu"><a href="logout.php">Elimina produs <img id="elimina" src="imagini/minus.png" alt=""></a></li>
                     </ul>
                   </div>'; 
                 }
