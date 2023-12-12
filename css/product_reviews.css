@@ -104,6 +104,18 @@ body {
   margin-bottom: 20px;
 }
 
+#product-details .container p#average-rating {
+  font-size: 24px;
+  margin-bottom: 2px;
+  color: var(--gold);
+}
+
+#product-details .container #num-reviews p {
+  font-size: 16px;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
 .sneaker {
   flex: 0 0 calc(70% - 20px);
   margin-top: 100px;
@@ -220,6 +232,13 @@ body {
   padding: 10px 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+#product-reviews form .review-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 }
 
 #product-reviews form button:hover {
