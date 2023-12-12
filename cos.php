@@ -175,6 +175,12 @@ if (isset($_POST['place_order'])) {
             $nume = isset($fetch_cos['nume']) ? $fetch_cos['nume'] : '';
             $pret = isset($fetch_cos['pret']) ? $fetch_cos['pret'] : '';
             $image = isset($fetch_cos['img']) ? $fetch_cos['img'] : '';
+            $product_id = $fetch_cos['product_id'];
+            $ordered_quantity = $fetch_cos['quantity'];
+
+            // Update the product quantity in the products table
+            $update_quantity_query = "UPDATE products SET quantity = quantity - $ordered_quantity WHERE id = $product_id";
+            $update_quantity_result = mysqli_query($con, $update_quantity_query);
             ?>
             <tr>
                 <td>

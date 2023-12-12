@@ -120,15 +120,27 @@ if (isset($_POST['adauga'])) {
                           </div>
                           <div class="pret"><?php echo $fetch_produs['pret']; ?> lei</div>
                           
-
+                          
                           <form method="POST" action="">
                               <input type="hidden" name="nume" value="<?php echo $fetch_produs['nume']; ?>">
                               <input type="hidden" name="pret" value="<?php echo $fetch_produs['pret']; ?>">
                               <input type="hidden" name="img" value="<?php echo $product_id; ?>">
                               <input type="submit" name="adauga" value="Adauga in cos" class="hero-btn">
-                          </form>
-
-                          <div class="hidden elimina-produs"><img src="imagini/minus.png" alt=""></div>
+                          </form>                  
+                          <?php 
+                            if ($user_data && is_admin($con, $user_data['id'])) {
+                              // Add the quantity div here
+                          ?>
+                            <div class="quantity-container">
+                              <p class="quantity-text">In stock: <?php echo $fetch_produs['quantity']; ?></p>
+                            </div>
+                          <?php } ?>                        
+                                             
+                          <div class="view-reviews">
+                            <?php 
+                              echo "<a href='product_reviews.php?id={$fetch_produs['id']}'>View Reviews</a>";
+                            ?>
+                          </div>
                       </div>
                   </div>
                   <?php

@@ -1,0 +1,227 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+:root {
+  --red: #ff0000;
+  --lightblue: #00ffff;
+  --blue: #0000ff;
+  --maxwidth: 1200px;
+  --gri: #292d2d;
+  --crem: #fff9f4;
+  --gold: #c6a66f;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Lexend", sans-serif;
+  background: url("../imagini/poza-dark.png") no-repeat center center/cover;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: var(--gri);
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+}
+
+.navbar li {
+  margin: 0 10px;
+  padding: 10px;
+  color: white;
+  height: 40px;
+  transition: color 0.25s, background-color 0.25s, transform 0.25s ease;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: var(--gold);
+  font-family: Lexend, sans-serif;
+  font-size: 20px;
+}
+
+.navbar li:hover {
+  color: var(--gold);
+  background-color: var(--crem);
+  transform: scale(1.05);
+}
+
+.navbar .container .logo a img {
+  height: 85px;
+  width: 85px;
+}
+
+.navbar .container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: var(--maxwidth);
+}
+
+.navbar .container .meniu .meniu-dpd li a img {
+  height: 28px;
+  width: 28px;
+}
+
+.navbar .container .meniu .meniu-dpd li a #plus {
+  height: 20px;
+  width: 20px;
+  margin-left: 5px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Style for the product details section */
+#product-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+#product-details .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.sneaker {
+  flex: 0 0 calc(70% - 20px);
+  margin-top: 100px;
+  background-color: transparent;
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sneaker h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--crem);
+  margin-top: 20px;
+}
+
+.sneaker p {
+  font-size: 16px;
+  color: var(--crem);
+}
+
+.sneaker img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+/* Style for the product reviews section */
+#product-reviews {
+  flex: 0 0 calc(30% - 20px);
+  margin-top: 20px;
+  background-color: var(--gri);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  color: var(--crem);
+  width: 500px;
+}
+
+#product-reviews h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--crem);
+}
+
+.review {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  color: var(--gri);
+}
+
+.review p {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--gri);
+}
+
+.review hr {
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#product-reviews form {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: var(--crem);
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#product-reviews form h3 {
+  font-family: Lexend, sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--gri);
+}
+
+#product-reviews form label {
+  font-family: Lexend, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--gri);
+}
+
+#product-reviews form select,
+#product-reviews form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid var(--gri);
+  border-radius: 5px;
+  font-family: Lexend, sans-serif;
+  font-size: 16px;
+}
+
+#product-reviews form button {
+  background-color: var(--gold);
+  color: var(--crem);
+  font-family: Lexend, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#product-reviews form button:hover {
+  background-color: #e7ae45;
+}
