@@ -3,6 +3,11 @@ session_start();
 
 include("php/connection.php");
 include("php/functions.php");
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
 $user_data = check_login($con);
 
 if (isset($_POST['update_quantity'])) {
@@ -79,15 +84,83 @@ if (isset($_POST['place_order'])) {
         $insert_order_result = mysqli_query($con, $insert_order_query);
 
         if ($insert_order_result) {
-            // Clear the cart by deleting all items
-            $clear_cart_query = "DELETE FROM cart WHERE user_id = $user_id";
-            $clear_cart_result = mysqli_query($con, $clear_cart_query);
+    
+            // Send order confirmation email
+            $mail = new PHPMailer(true);
+            try {
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'bolosandrei4@gmail.com'; // Your Gmail username
+                $mail->Password = 'lniw bnum adri dxxn'; // Your Gmail app password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                $mail->Port = 465;
+    
+                // Recipients
+                $mail->setFrom('bolosandrei4@gmail.com', 'SneakerMania');
+    
+                // Fetch user email based on user_id from users table
+                $user_email_query = "SELECT email, user_name FROM users WHERE id = $user_id";
+                $user_email_result = mysqli_query($con, $user_email_query);
+    
+                if ($user_email_row = mysqli_fetch_assoc($user_email_result)) {
+                    $user_email = $user_email_row['email'];
+                    $user_name = $user_email_row['user_name'];
+    
+                    $mail->addAddress($user_email, $user_name);
+    
+                    // Content
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Order Confirmation';
+    
+                    // Fetch order details to include in the email
+                    $order_details_query = "SELECT o.order_number, o.total_price, o.order_date, p.nume, p.img, c.quantity
+                        FROM orders o
+                        JOIN cart c ON o.user_id = c.user_id
+                        JOIN products p ON c.product_id = p.id
+                        WHERE o.order_number = $order_number AND o.user_id = $user_id";
+                    $order_details_result = mysqli_query($con, $order_details_query);
 
-            header("Location: cos.php?success=1");
-            exit();
+                    $email_body = "Order #$order_number confirmed. It will arrive to you soon.<br><br>";
+
+                    while ($row = mysqli_fetch_assoc($order_details_result)) {
+                        $product_name = $row['nume'];
+                        $product_image_base64 = $row['img'];
+                        $product_quantity = $row['quantity'];
+                    
+                        // Decode the base64 image data
+                        $product_image = base64_decode($product_image_base64);
+                    
+                        // Include product details in the email
+                        $email_body .= "<b>$product_name</b><br>";
+                        $email_body .= "Quantity: $product_quantity<br>";
+
+                        
+                        // Include image in the email
+                        // $email_body .= "<img src='data:image/png;base64," . base64_encode($product_image) . "' alt='$product_name'><br><br>";
+                    }
+                    
+                    $email_body .= "Payment method: Ramburs<br><br>";
+                    $mail->Body = $email_body;
+    
+                    $mail->send();
+                        
+                    $clear_cart_query = "DELETE FROM cart WHERE user_id = $user_id";
+                    $clear_cart_result = mysqli_query($con, $clear_cart_query);
+                    // Redirect to the success page
+                    header("Location: cos.php?success=1");
+                    exit();
+                }
+            } catch (Exception $e) {
+                echo "Mailer Error: {$mail->ErrorInfo}";
+            }
+        }
+
+
+    header("Location: cos.php?success=1");
+    exit();
         } 
     } 
-}
 
 ?>
 <!DOCTYPE html>
