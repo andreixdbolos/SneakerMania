@@ -1,5 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+:root {
+  --red: #ff0000;
+  --lightblue: #00ffff;
+  --blue: #0000ff;
+  --maxwidth: 1200px;
+  --gri: #292d2d;
+  --crem: #fff9f4;
+  --gold: #c6a66f;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -58,6 +68,16 @@ body {
   font-size: 16px;
   font-family: Lexend, sans-serif;
   margin-top: 20px;
+}
+
+#login-content .login-form #email-field {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--gold);
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-family: Lexend, sans-serif;
 }
 
 #login-content .login-form #password-field {
@@ -126,6 +146,26 @@ body {
   background-color: rgb(215, 115, 120);
   border-radius: 5px;
   animation: fadeOut 1s ease-in-out; /* Adjust the duration as needed */
+}
+
+/* Add this to your existing CSS */
+
+#login-content .login-form #success-message {
+  color: var(--success-color); /* Define your success text color */
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+#login-content .login-form #success-message a {
+  color: var(--link-color); /* Define your link color */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+#login-content .login-form #success-message a:hover {
+  color: var(--gold); /* Define your link hover color */
 }
 
 @keyframes fadeOut {

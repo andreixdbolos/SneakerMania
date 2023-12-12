@@ -2,27 +2,27 @@
 
 function check_login($con)
 {
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start(); // Start the session if not already started
+    }
 
-	if(isset($_SESSION['user_id']))
-	{
+    if (isset($_SESSION['user_id'])) {
+        $id = $_SESSION['user_id'];
+        $query = "SELECT * FROM users WHERE id = '$id' LIMIT 1";
 
-		$id = $_SESSION['user_id'];
-		$query = "select * from users where user_id = '$id' limit 1";
+        $result = mysqli_query($con, $query);
 
-		$result = mysqli_query($con,$query);
-		if($result && mysqli_num_rows($result) > 0)
-		{
+        if ($result && mysqli_num_rows($result) > 0) {
+            $user_data = mysqli_fetch_assoc($result);
+            return $user_data;
+        }
+    }
 
-			$user_data = mysqli_fetch_assoc($result);
-			return $user_data;
-		}
-	}
-
-	//redirect to login
-	header("Location: login.php");
-	die;
-
+    // Redirect to login
+    header("Location: login.php");
+    die;
 }
+
 
 function random_num($length)
 {
@@ -93,11 +93,60 @@ function adauga_in_cos($con, $nume, $image_data) {
 
 
 function is_admin($con, $user_id) {
-    $admin_user_id = 1;  // Replace with the actual user ID for administrators
+    $admin_user_id = 29;  // Replace with the actual user ID for administrators
 
     if ($user_id == $admin_user_id) {
         return true;
     } else {
         return false;
     }
+}
+
+function validate_login($con, $username, $password)
+{
+    $username = mysqli_real_escape_string($con, $username);
+
+    $query = "SELECT * FROM users WHERE user_name = ? LIMIT 1";
+    $stmt = mysqli_prepare($con, $query);
+    mysqli_stmt_bind_param($stmt, "s", $username);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($result && $user_data = mysqli_fetch_assoc($result)) {
+        // Check if password is hashed with md5
+        if (strpos($user_data['password'], '$') === false) {
+            // Password is hashed with md5
+            if (md5($password) == $user_data['password']) {
+                return $user_data;
+            } else {
+                echo "Passwords do not match!";
+            }
+        } else {
+            // Password is hashed with password_hash
+            if (password_verify($password, $user_data['password'])) {
+                return $user_data;
+            } else {
+                echo "Passwords do not match!";
+            }
+        }
+    } else {
+        echo "User not found!";
+    }
+
+    return null;
+}
+
+
+function get_user_id($con, $username)
+{
+    $username = mysqli_real_escape_string($con, $username);
+
+    $query = "SELECT user_id FROM users WHERE user_name = '$username' LIMIT 1";
+    $result = mysqli_query($con, $query);
+
+    if ($result && $row = mysqli_fetch_assoc($result)) {
+        return $row['id'];
+    }
+
+    return null;
 }

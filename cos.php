@@ -83,6 +83,8 @@ if (isset($_POST['place_order'])) {
             $clear_cart_query = "DELETE FROM cart WHERE user_id = $user_id";
             $clear_cart_result = mysqli_query($con, $clear_cart_query);
 
+            header("Location: cos.php?success=1");
+            exit();
         } 
     } 
 }
@@ -100,6 +102,22 @@ if (isset($_POST['place_order'])) {
     <link rel="stylesheet" href="css/cos.css?<?php echo time(); ?>">  
     <link rel="icon" href="imagini/aj4logo-removebg-preview.png" />
 
+    <script>
+        // Function to show a success message modal
+        function showSuccessMessage() {
+            var modal = document.getElementById("successModal");
+            modal.style.display = "block";
+        }
+
+        // Trigger the function when the document is ready
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check if the URL has a success parameter (you can set this after a successful order)
+            var urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has("success")) {
+                showSuccessMessage();
+            }
+        });
+    </script>
 </head>
 <body>
 <nav class="navbar">
@@ -108,7 +126,7 @@ if (isset($_POST['place_order'])) {
             <a href="index.php"><img src="imagini/aj4logo-removebg-preview.png" /></a>
         </div>
         <div class="meniu">
-            <ul class="hidden meniu-dpd">
+            <ul class="meniu-dpd">
                 <li><a href="index.php">Acasa</a></li>
                 <li><a href="shop.php">Shop</a></li>
                 <li><a href="about.php">Despre</a></li>
@@ -120,6 +138,7 @@ if (isset($_POST['place_order'])) {
                     <li><a href="register.php">Register</a></li>
                 <?php } ?>  
             </ul>
+
 
             <div class="hamburger">
                 <div class="middle-bar">
@@ -206,24 +225,36 @@ if (isset($_POST['place_order'])) {
     ?>
 </div>
 <div class="div-payment">
-<form method="POST" action="cos.php" class="payment-form">
-    <label for="name">Name:</label>
-    <input type="text" name="name" required>
+    <form method="POST" action="cos.php" class="payment-form">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required>
 
-    <label for="surname">Surname:</label>
-    <input type="text" name="surname" required>
+        <label for="surname">Surname:</label>
+        <input type="text" name="surname" required>
 
-    <label for="address">Address:</label>
-    <input type="text" name="address" required>
+        <label for="address">Address:</label>
+        <input type="text" name="address" required>
 
-    <label for="phone_number">Phone Number:</label>
-    <input type="text" name="phone_number" required>
+        <label for="phone_number">Phone Number:</label>
+        <input type="text" name="phone_number" required>
 
-    <!-- Other form fields and buttons -->
+        <label for="payment_method">Metoda plata:</label>
+        <select name="payment_method" id="payment_method">
+                <option value="card">Ramburs</option>
 
-    <button type="submit" name="place_order" class="payment-btn">Place Order</button>
-</form>
+        </select>
+
+        <!-- Other form fields and buttons -->
+
+        <button type="submit" name="place_order" class="payment-btn">Place Order</button>
+    </form>
 </div>
+<div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('successModal').style.display='none'">&times;</span>
+            <p>Order placed successfully!</p>
+        </div>
+    </div>
 
 <script src="remove.js"></script>
 
@@ -244,4 +275,5 @@ if (isset($_POST['place_order'])) {
         </div>
       </div>
     </footer>
+
 </html>

@@ -1,40 +1,65 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 session_start();
+
 include("php/connection.php");
 include("php/functions.php");
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
-if($_SERVER['REQUEST_METHOD'] == "POST")
-{   //something was posted
-    $email = $_POST['user_name'];
-    $password = $_POST['password'];
-    $confirmPassword = $_POST['confirmPassword'];
+require 'vendor/autoload.php'; // Path to Composer autoload
 
-    if(!empty($email) && !empty($password) && !empty($confirmPassword) && ($password == $confirmPassword))
-    {
-        //save to database
-        $user_id = random_num(5);
-        $query = "insert into users (user_id,user_name,password) values ('$user_id','$email','$password')";
-        mysqli_query($con, $query);
-        //check if query is empty
-        if(mysqli_affected_rows($con) > 0)
-        {
-            $query = "select * from users where user_id = '$user_id' limit 1";
-            $result = mysqli_query($con, $query);
-            if($result && mysqli_num_rows($result) > 0)
-            {
-                $user_data = mysqli_fetch_assoc($result);
-                $_SESSION['user_id'] = $user_data['user_id'];
-                header("Location: login.php");
-                die;
-            }
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $username = stripslashes($_POST['username']);
+    $username = mysqli_real_escape_string($con, $username);
+    $email = stripslashes($_POST['email']);
+    $email = mysqli_real_escape_string($con, $email);
+    $password = stripslashes($_POST['password']);
+    $password = mysqli_real_escape_string($con, $password);
+    $password_hashed = password_hash($password, PASSWORD_DEFAULT);
+    $token = bin2hex(random_bytes(50));
+
+// Insert user data into the database
+    $query = "INSERT into `users` (user_name, password, email, token, isEmailConfirmed)
+              VALUES ('$username', '$password_hashed', '$email', '$token', '0')";
+    $result = mysqli_query($con, $query);
+
+
+
+    if ($result) {
+        // Send email verification
+        $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'bolosandrei4@gmail.com'; // Your Gmail username
+            $mail->Password = 'lniw bnum adri dxxn'; // Your Gmail app password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port = 465;
+
+            //Recipients
+            $mail->setFrom('bolosandrei4@gmail.com', 'SneakerMania'); // Your Gmail address and your name
+            $mail->addAddress($email, $username); // User's email and username
+            $mail->addReplyTo('bolosandrei4@gmail.com', 'SneakerMania'); // Your Gmail address and your name
+
+            //Content
+            $mail->isHTML(true);
+            $mail->Subject = 'Email Verification';
+            $mail->Body = "Click the following link to verify your email: <a href='http://localhost/SneakerMania/verified.php?token=$token'>Verify Email</a>";
+
+            $mail->send();
+            // echo "
+            //   <div id='success-message'>
+            //     <h3>You are registered successfully. Please check your email for verification.</h3>
+            //     <p class='link'>Click here to <a href='login.php'>Login</a></p>
+            //   </div>";
+
+        } catch (Exception $e) {
+            echo "Mailer Error: {$mail->ErrorInfo}";
         }
-        else
-        {
-            echo "Please enter some valid information!";
-        }
+    } else {
+        echo "Please enter some valid information!";
     }
 }
 ?>
@@ -45,12 +70,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/navbar.css?v=2" />
-    <link rel="stylesheet" href="css/index.css?v=2" />
-    <link rel="stylesheet" href="css/footer.css?v=2" />
-    <link rel="stylesheet" href="css/shop.css?v=2" />
-    <link rel="stylesheet" href="css/sneaker-page.css?v=2" />
-    <link rel="stylesheet" href="css/login.css?v=2" />
+    <link rel="stylesheet" href="css/navbar.css?<?php echo time(); ?>" />
+    <link rel="stylesheet" href="css/index.css?<?php echo time(); ?>" />
+    <link rel="stylesheet" href="css/footer.css?<?php echo time(); ?>" />
+    <link rel="stylesheet" href="css/shop.css?<?php echo time(); ?>" />
+    <link rel="stylesheet" href="css/sneaker-page.css?<?php echo time(); ?>" />
+    <link rel="stylesheet" href="css/login.css?<?php echo time(); ?>" />
     <link rel="icon" href="imagini/aj4logo-removebg-preview.png" />
     <link
       rel="stylesheet"
@@ -91,10 +116,19 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
         <h2>Register</h2>
         <form method="post">
           <input
+
             type="text"
-            name="user_name"
+            name="username"
             placeholder="Username"
             id="username-field"
+
+          />
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            id="email-field"
           />
           <br />
           <input
@@ -118,6 +152,21 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
             >
           </div>
         </form>
+
+        <?php
+    // Check if the registration was successful and display the success message
+    if (isset($result) && $result) {
+      $_SESSION['id'] = mysqli_insert_id($con);
+      $_SESSION['username'] = $username; // Change this line
+  
+      echo "
+          <div id='success-message'>
+              <h3>You are registered successfully. Please check your email for verification.</h3>
+              <p class='link'>Click here to <a href='login.php'>Login</a></p>
+          </div>";
+  }
+  
+    ?>
       </div>
     </div>
 

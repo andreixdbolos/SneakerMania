@@ -16,21 +16,40 @@ if (isset($_SESSION['loggedIn'])) {
 }
 
 if (isset($_POST['login'])) {
-
   $username = $_POST['username'];
   $password = $_POST['password'];
 
-  if ($username === 'admin' && $password === 'password') {
-    $_SESSION['loggedIn'] = true;
-    header('Location: index.php');
-    exit();
-  } else {
-  }
+    if ($username === 'admin') {
+        // For the admin user, compare the password directly (no hashing)
+        if ($password === '1234') {
+            echo "Admin Login Successful!<br>";
+            $_SESSION['loggedIn'] = true;
+            header('Location: index.php');
+            exit();
+        } else {
+            echo "Admin Passwords do not match! Please check your credentials.<br>";
+        }
+    } else {
+        // For regular users, validate the login as before
+        $user_data = validate_login($con, $username, $password);
+
+        if ($user_data) {
+            // Set user session upon successful login
+            $_SESSION['id'] = $user_data['id'];
+            $_SESSION['username'] = $user_data['user_name'];
+            $_SESSION['loggedIn'] = true;
+
+            echo "User Login Successful!<br>"; // Add this for debugging
+            header("Location: index.php"); // Redirect to your welcome page or dashboard
+            exit();
+        } else {
+            echo "User Login failed. Please check your credentials.<br>";
+        }
+    }
 }
 
 if (isset($_POST['logout'])) {
   unset($_SESSION['loggedIn']);
-
   header('Location: index.php');
   exit();
 }

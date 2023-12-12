@@ -1,34 +1,31 @@
 <?php
-
 session_start();
+
+// Check if the user is already logged in
+if (isset($_SESSION['user_id'])) {
+    header("Location: index.php"); // Redirect to your welcome page or dashboard
+    exit();
+}
 
 include("php/connection.php");
 include("php/functions.php");
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $user_input = $_POST['username'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
 
-    if (!empty($user_input) && !empty($password)) {
-        // Validate email format or check if username is "admin"
-        if (filter_var($user_input, FILTER_VALIDATE_EMAIL) || strtolower($user_input) === 'admin') {
-            //read from database
-            $query = "SELECT * FROM users WHERE user_name = '$user_input' LIMIT 1";
-            $result = mysqli_query($con, $query);
+    // Validate the user's credentials
+    $user_data = validate_login($con, $username, $password);
 
-            if ($result) {
-                if ($result && mysqli_num_rows($result) > 0) {
-                    $user_data = mysqli_fetch_assoc($result);
-                    if ($user_data['password'] === $password) {
-                        $_SESSION['user_id'] = $user_data['user_id'];
-                        header("Location: index.php");
-                        die;
-                    }
-                }
-            }
-        } 
+    if ($user_data) {
+        // Set user session upon successful login
+        $_SESSION['user_id'] = $user_data['id'];
+        $_SESSION['username'] = $user_data['user_name'];
+
+        header("Location: index.php"); // Redirect to your welcome page or dashboard
+        exit();
     } 
-}
+  }
 ?>
 
 
@@ -83,19 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       <div class="login-form">
         <h2>Log in</h2>
         <form method="post">
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            id="username-field"
-          />
-          <br />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            id="password-field"
-          />
+        <input type="text" name="username" placeholder="Username" id="username-field" />
+        <input type="password" name="password" placeholder="Password" id="password-field" />
+
           <br />
           <div id="login-container">
             <input type="submit" value="Log in" id="login-button" />
@@ -105,50 +92,47 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
           </div>
           <?php
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-            if (!empty($user_input) && !empty($password)) {
-                // Validate email format or check if username is "admin"
-                if (filter_var($user_input, FILTER_VALIDATE_EMAIL) || strtolower($user_input) === 'admin') {
-                    //read from database
-                    $query = "SELECT * FROM users WHERE user_name = '$user_input' LIMIT 1";
-                    $result = mysqli_query($con, $query);
-
-                    if ($result) {
-                        if ($result && mysqli_num_rows($result) > 0) {
-                            $user_data = mysqli_fetch_assoc($result);
-                            if ($user_data['password'] === $password) {
-                                $_SESSION['user_id'] = $user_data['user_id'];
-                                header("Location: index.php");
-                                die;
-                            }
-                        }
-                    }
-
-                    echo '<div id="error-message">Wrong username or password!</div>';
-                    echo '<script>
-                        setTimeout(function(){
-                            var errorMessage = document.getElementById("error-message");
-                            errorMessage.parentNode.removeChild(errorMessage);
-                        }, 1000); // Adjust the timeout as needed
-                      </script>';
-                } else {
-                    echo '<div id="error-message">Invalid email format or username!</div>';
-                    echo '<script>
-                        setTimeout(function(){
-                            var errorMessage = document.getElementById("error-message");
-                            errorMessage.parentNode.removeChild(errorMessage);
-                        }, 1000); // Adjust the timeout as needed
-                      </script>';
-                }
-            } else {
-                echo '<div id="error-message">Please enter both username and password!</div>';
-                echo '<script>
-                        setTimeout(function(){
-                            var errorMessage = document.getElementById("error-message");
-                            errorMessage.parentNode.removeChild(errorMessage);
-                        }, 1000); // Adjust the timeout as needed
-                      </script>';
+          if (!empty($username) && !empty($password)) {
+              // Remove the condition to check for a valid email format
+              // if (filter_var($username, FILTER_VALIDATE_EMAIL) || strtolower($username) === 'admin') {
+              // Read from the database
+              $query = "SELECT * FROM users WHERE user_name = '$username' LIMIT 1";
+              $result = mysqli_query($con, $query);
+      
+              if ($result) {
+                if ($result && mysqli_num_rows($result) > 0) {
+                  $user_data = mysqli_fetch_assoc($result);
+              
+                  if (md5($password) == $user_data['password']) {
+                      echo "Passwords match!";
+                      die; // Stop execution to check if the "Passwords match!" message is displayed
+                  } else {
+                      echo "Passwords do not match!";
+                      die; // Stop execution to check if the "Passwords do not match!" message is displayed
+                  }
+              }
+              
+              
+              
             }
-        }
+              echo '<div id="error-message">Wrong username or password!</div>';
+              echo '<script>
+                      setTimeout(function(){
+                          var errorMessage = document.getElementById("error-message");
+                          errorMessage.parentNode.removeChild(errorMessage);
+                      }, 1000); // Adjust the timeout as needed
+                    </script>';
+          } else {
+              echo '<div id="error-message">Please enter both username and password!</div>';
+              echo '<script>
+                      setTimeout(function(){
+                          var errorMessage = document.getElementById("error-message");
+                          errorMessage.parentNode.removeChild(errorMessage);
+                      }, 1000); // Adjust the timeout as needed
+                    </script>';
+          }
+      }
+        
         ?>
         </form>
       </div>

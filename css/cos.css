@@ -313,6 +313,63 @@ table button:hover {
   width: 100%; /* Adjust width as needed */
 }
 
+.payment-form select {
+  width: 60%; /* Adjust width as needed */
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid var(--gri);
+  border-radius: 5px;
+  font-family: Lexend, sans-serif;
+  font-size: 16px;
+}
+
+/* Style for the payment method label */
+.payment-form label[for="payment_method"] {
+  width: 25%;
+  margin-bottom: 8px;
+}
+
+.modal {
+  font-family: Lexend, sans-serif;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Style for the modal content */
+.modal-content {
+  font-family: Lexend, sans-serif;
+  background-color: var(--crem);
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid var(--gri);
+  width: 80%;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the close button in the modal */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   th,
   td {

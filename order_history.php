@@ -6,16 +6,17 @@ include("php/functions.php");
 $user_data = check_login($con);
 
 // Check if the user is an admin
-if (!$user_data || !is_admin($con, $user_data['user_id'])) {
+if (!$user_data || !is_admin($con, $user_data['id'])) {
     header("Location: index.php"); // Redirect non-admin users to the home page
     exit();
 }
 
 // Fetch order history for admin
-$order_history_query = "SELECT o.*, u.user_name AS user_email
+$order_history_query = "SELECT o.*, u.user_name AS user_email, o.payment_method
                         FROM orders o
-                        JOIN users u ON o.user_id = u.user_id
+                        JOIN users u ON o.user_id = u.id
                         ORDER BY o.order_date DESC";
+
 
 $order_history_result = mysqli_query($con, $order_history_query);
 
@@ -24,14 +25,22 @@ $total_orders_result = mysqli_query($con, $total_orders_query);
 $total_orders_data = mysqli_fetch_assoc($total_orders_result);
 $total_orders = $total_orders_data['total_orders'];
 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['mark_delivered'])) {
+  foreach ($_POST['mark_delivered'] as $order_number) {
+      // Update the isDelivered column to 1 for the selected orders
+      $update_query = "UPDATE orders SET isDelivered = 1 WHERE order_number = $order_number";
+      mysqli_query($con, $update_query);
+  }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Order History</title>
-    <link rel="stylesheet" href="css/navbar.css"> 
-    <link rel="stylesheet" href="css/order_history.css">
+    <link rel="stylesheet" href="css/navbar.css?<?php echo time(); ?>"> 
+    <link rel="stylesheet" href="css/order_history.css?<?php echo time(); ?>">
 </head>
 <body>
 <nav class="navbar">
@@ -77,13 +86,15 @@ $total_orders = $total_orders_data['total_orders'];
             <thead>
                 <tr>
                     <th>Order Number</th>
-                    <th>User Email</th>
+                    <th>Username</th>
                     <th>Total Price</th>
                     <th>Order Date</th>
                     <th>Name</th>
                     <th>Surname</th>
                     <th>Address</th>
                     <th>Phone Number</th>
+                    <th>Payment method</th>
+                    <th>Mark as delivered</th>
                 </tr>
             </thead>
             <tbody>
@@ -98,6 +109,18 @@ $total_orders = $total_orders_data['total_orders'];
                     echo "<td>{$order['surname']}</td>";
                     echo "<td>{$order['address']}</td>";
                     echo "<td>{$order['phone_number']}</td>";
+                    echo "<td>{$order['payment_method']}</td>";
+                    echo '<td>';
+                    echo '<form method="POST" action="">';
+                    echo '<input type="checkbox" name="mark_delivered[]" value="' . $order['order_number'] . '"';
+                    if ($order['isDelivered'] == 1) {
+                        echo ' checked'; 
+                    }
+                    echo ' class="payment-checkbox" />'; 
+                    echo '<input type="submit" name="submit_order" value="Submit" class="submit-btn">';
+                    echo '</form>';
+                    echo '</td>';
+
                     echo "</tr>";
                 }
                 ?>

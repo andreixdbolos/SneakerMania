@@ -55,15 +55,15 @@ if (isset($_POST['adauga'])) {
 
           
             <?php 
-                if ($user_data && !is_admin($con, $user_data['user_id'])) { ?>
+                if ($user_data && !is_admin($con, $user_data['id'])) { ?>
                     <li><a href="logout.php">Log Out</a></li>
-                <?php } else if(!is_admin($con, $user_data['user_id'])) { ?>
+                <?php } else if(!is_admin($con, $user_data['id'])) { ?>
                     <li><a href="login.php">Log In</a></li>
                     <li><a href="register.php ">Register</a></li>
                 <?php } ?>  
                 
                 <?php 
-                if ($user_data && is_admin($con, $user_data['user_id'])) {
+                if ($user_data && is_admin($con, $user_data['id'])) {
                     echo '<div class="hamburger2">
                     <div class="middle-bar2">
                       <div class="top-bar2"></div>

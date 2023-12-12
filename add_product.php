@@ -7,7 +7,7 @@ include("php/functions.php");
 $user_data = check_login($con);
 
 // Check if the user is an admin
-if (!is_admin($con, $user_data['user_id'])) {
+if (!is_admin($con, $user_data['id'])) {
     header("Location: index.php"); // Redirect non-admin users
     exit();
 }
