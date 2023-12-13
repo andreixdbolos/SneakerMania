@@ -29,6 +29,13 @@ ul {
   flex-wrap: wrap;
 }
 
+.navbar .container .meniu .meniu-dpd li#buton-cont a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 28px;
+}
+
 #showcase {
   background-image: url("../imagini/fundal.jpg");
   background-size: cover;

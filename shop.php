@@ -56,6 +56,7 @@ if (isset($_POST['adauga'])) {
           
             <?php 
                 if ($user_data && !is_admin($con, $user_data['id'])) { ?>
+                    <li id="buton-cont"><a href="account.php"><img src="imagini/user.png"></a></li>
                     <li><a href="logout.php">Log Out</a></li>
                 <?php } else if(!is_admin($con, $user_data['id'])) { ?>
                     <li><a href="login.php">Log In</a></li>

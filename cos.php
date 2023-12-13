@@ -137,7 +137,7 @@ if (isset($_POST['place_order'])) {
 
                         
                         // Include image in the email
-                        // $email_body .= "<img src='data:image/png;base64," . base64_encode($product_image) . "' alt='$product_name'><br><br>";
+                        $email_body .= "<img src='imagini/$product_image.png' alt='$product_name'><br><br>";
                     }
                     
                     $email_body .= "Payment method: Ramburs<br><br>";
@@ -205,6 +205,7 @@ if (isset($_POST['place_order'])) {
                 <li><a href="about.php">Despre</a></li>
                 <?php 
                 if ($user_data) { ?>
+                    <li id="buton-cont"><a href="account.php"><img src="imagini/user.png"></a></li>
                     <li><a href="logout.php">Log Out</a></li>
                 <?php } else { ?>
                     <li><a href="login.php">Log In</a></li>

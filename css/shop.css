@@ -220,6 +220,12 @@
   margin-left: 5px;
 }
 
+.navbar .container .meniu .meniu-dpd li#buton-cont a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 28px;
+}
 .visible {
   visibility: visible;
 }

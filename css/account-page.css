@@ -1,0 +1,157 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+:root {
+  --red: #ff0000;
+  --lightblue: #00ffff;
+  --blue: #0000ff;
+  --maxwidth: 1200px;
+  --gri: #292d2d;
+  --crem: #fff9f4;
+  --gold: #c6a66f;
+}
+
+body {
+  font-family: "Lexend", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--gri);
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  background-color: var(--gri);
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+}
+
+.navbar li {
+  margin: 0 10px;
+  padding: 10px;
+  color: white;
+  height: 40px;
+  transition: color 0.25s, background-color 0.25s, transform 0.25s ease;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: var(--gold);
+  font-family: Lexend, sans-serif;
+  font-size: 20px;
+}
+
+.navbar li:hover {
+  color: var(--gold);
+  background-color: var(--crem);
+  transform: scale(1.05);
+}
+
+.navbar .container .logo a img {
+  height: 85px;
+  width: 85px;
+}
+
+.navbar .container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: var(--maxwidth);
+}
+
+.navbar .container .meniu .meniu-dpd li a img {
+  height: 28px;
+  width: 28px;
+}
+
+.navbar .container .meniu .meniu-dpd li a #plus {
+  height: 20px;
+  width: 20px;
+  margin-left: 5px;
+}
+
+.navbar .container .meniu .meniu-dpd li#buton-cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-top: 10px; */
+}
+.navbar .container .meniu .meniu-dpd li#buton-cont a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 28px;
+}
+
+.account-section {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.account-section #log-out-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 100px;
+  margin-top: 20px;
+}
+
+.account-section #log-out-btn #buton-log {
+  background-color: var(--gri);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+.account-section #log-out-btn #buton-log:hover {
+  background-color: var(--gold);
+}
+.account-section #log-out-btn #buton-log a {
+  text-decoration: none;
+  color: var(--gold);
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+.account-section h2 {
+  color: var(--crem);
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.account-section #log-out-btn #buton-log a:hover {
+  color: var(--gri);
+}
+
+.user-data {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  width: 400px;
+  margin: 0 auto;
+}
+
+.user-data p {
+  margin: 0;
+  padding: 10px;
+  font-size: 18px;
+}

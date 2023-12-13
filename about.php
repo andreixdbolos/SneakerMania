@@ -71,6 +71,7 @@ if (isset($_POST['logout'])) {
             <li><a href="cos.php"><img src="imagini/shopping-cart3.png" alt=""></a></li>
             <?php 
                 if ($user_data) { ?>
+                    <li id="buton-cont"><a href="account.php"><img src="imagini/user.png"></a></li>
                     <li><a href="logout.php">Log Out</a></li>
                 <?php } else { ?>
                     <li><a href="login.php">Log In</a></li>
