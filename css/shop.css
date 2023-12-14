@@ -252,3 +252,18 @@
 #products .container .box .box-content .view-reviews:hover {
   background-color: #e7ae45;
 }
+
+#products .container .box .box-content form .out-of-stock {
+  margin-top: 5px;
+  border-radius: 10px;
+  border: none;
+  /* background-color: var(--gold); */
+  color: red;
+  font-family: Lexend, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  /* cursor: pointer; */
+  transition: all 0.25s ease;
+  padding: 0.4rem;
+  /* margin-bottom: 10px; */
+}

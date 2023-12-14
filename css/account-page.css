@@ -155,3 +155,85 @@ body {
   padding: 10px;
   font-size: 18px;
 }
+
+table {
+  width: 50%;
+  border-collapse: collapse;
+  background-color: var(--crem);
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid var(--gri);
+}
+
+table th {
+  background-color: var(--gold);
+  color: var(--crem);
+  font-family: Lexend, sans-serif;
+  font-weight: 700;
+  height: 50px;
+}
+
+table tbody tr td {
+  background-color: var(--crem);
+  font-family: Lexend, sans-serif;
+  font-size: 14px;
+  border: 2px solid var(--gri);
+  text-align: center;
+  height: 130px;
+}
+
+table tbody tr td img.image-fit {
+  width: 200px;
+  border-radius: 5px;
+}
+
+table tbody tr td .model,
+table tbody tr td .price {
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+table tbody tr {
+  height: 130px;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:nth-child(even) {
+  background-color: var(--gri);
+}
+
+table button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: var(--gri);
+  color: var(--crem);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 5px;
+  font-family: Lexend, sans-serif;
+  border-radius: 10px;
+}
+
+table button:hover {
+  background-color: var(--gold);
+}
+
+.account-section #tabel-comanda {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.account-section h3 {
+  color: var(--crem);
+  font-size: 20px;
+  margin-bottom: 20px;
+}

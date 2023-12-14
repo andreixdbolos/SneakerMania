@@ -126,7 +126,15 @@ if (isset($_POST['adauga'])) {
                               <input type="hidden" name="nume" value="<?php echo $fetch_produs['nume']; ?>">
                               <input type="hidden" name="pret" value="<?php echo $fetch_produs['pret']; ?>">
                               <input type="hidden" name="img" value="<?php echo $product_id; ?>">
-                              <input type="submit" name="adauga" value="Adauga in cos" class="hero-btn">
+                              
+                              <?php 
+                                if ($fetch_produs['quantity'] > 0) {
+                                  echo '<input type="submit" name="adauga" value="Adauga in cos" class="hero-btn">';
+                                } else {
+                                  echo '<div class="out-of-stock">Out of stock</div>';
+                                }
+                              ?>
+                              <!-- <input type="submit" name="adauga" value="Adauga in cos" class="hero-btn"> -->
                           </form>                  
                           <?php 
                             if ($user_data && is_admin($con, $user_data['id'])) {

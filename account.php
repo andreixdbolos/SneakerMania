@@ -93,6 +93,43 @@ $userData = getUserDataFromDatabase($userId);
             <p><strong>Username:</strong> ' . $user_data['user_name'] . '</p>
             <p><strong>Email:</strong> ' . $user_data['email'] . '</p>
         </div>';
+        $query_orders = "SELECT * FROM orders WHERE user_id = $user_id";
+        $result_orders = mysqli_query($con, $query_orders);
+        echo '<h3>My Orders</h3>';
+        if ($result_orders) {
+            echo '<div id="tabel-comanda">
+            <table border="1">
+                    <tr>
+                        <th>Order Number</th>
+                        <th>Total Price</th>
+                        <th>Order Date</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Address</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Payment Method</th>
+                    </tr>';
+
+            while ($order_data = mysqli_fetch_assoc($result_orders)) {
+                echo '<tr>
+                        <td>' . $order_data['order_number'] . '</td>
+                        <td>' . $order_data['total_price'] . '</td>
+                        <td>' . $order_data['order_date'] . '</td>
+                        <td>' . $order_data['name'] . '</td>
+                        <td>' . $order_data['surname'] . '</td>
+                        <td>' . $order_data['address'] . '</td>
+                        <td>' . $order_data['phone_number'] . '</td>
+                        <td>' . $order_data['user_email'] . '</td>
+                        <td>' . $order_data['payment_method'] . '</td>
+                      </tr>';
+            }
+
+            echo '</table></div>';
+            mysqli_free_result($result_orders);
+        } else {
+            echo "Error fetching user orders: " . mysqli_error($con);
+        }
         // Add more user information as needed
     } else {
         // Redirect to login page if not logged in
@@ -100,8 +137,6 @@ $userData = getUserDataFromDatabase($userId);
         exit();
     }
     ?>
-
-    <!-- Add more account details as needed -->
 
     <div id="log-out-btn">
         <div id="buton-log">
