@@ -230,6 +230,10 @@
   visibility: visible;
 }
 
+#products .container .box {
+  height: 317.08px;
+}
+
 #products .container .box .box-content .view-reviews {
   cursor: pointer;
   background-color: var(--gri);
@@ -265,5 +269,5 @@
   /* cursor: pointer; */
   transition: all 0.25s ease;
   padding: 0.4rem;
-  /* margin-bottom: 10px; */
+  margin-bottom: 13px;
 }
