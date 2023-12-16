@@ -16,6 +16,7 @@ if (isset($_POST['submit'])) {
     $nume = mysqli_real_escape_string($con, $_POST['nume']);
     $descriere = mysqli_real_escape_string($con, $_POST['descriere']);
     $pret = mysqli_real_escape_string($con, $_POST['pret']);
+    $quantity = mysqli_real_escape_string($con, $_POST['quantity']); // New line
 
     // Process image upload
     $image_name = $_FILES['poza']['name'];
@@ -27,7 +28,7 @@ if (isset($_POST['submit'])) {
     move_uploaded_file($image_tmp, $image_folder . $image_name);
 
     // Insert product into the database
-    $insert_query = "INSERT INTO products (nume, descriere, img, pret) VALUES ('$nume', '$descriere', '$image_name', '$pret')";
+    $insert_query = "INSERT INTO products (nume, descriere, img, pret, quantity) VALUES ('$nume', '$descriere', '$image_name', '$pret', '$quantity')"; // Updated line
     mysqli_query($con, $insert_query);
 
     echo "Product added successfully!";
@@ -88,11 +89,14 @@ if (isset($_POST['submit'])) {
         <label for="descriere">Product Description:</label>
         <input type="text" name="descriere" required><br>
 
-        <label for="pret">Product Price:</label>
+        <label for="pret">Product Price: (RON)</label>
         <input type="number" name="pret" required><br>
 
         <label for="poza">Product Image:</label>
         <input type="file" name="poza" accept="image/*" required><br>
+
+        <label for="quantity">Quantity in Stock:</label>
+        <input type="number" name="quantity" required><br>
 
         <input type="submit" name="submit" value="Add Product">
     </form>
