@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap");
+:root {
+  --red: #ff0000;
+  --lightblue: #00ffff;
+  --blue: #0000ff;
+  --maxwidth: 1200px;
+  --gri: #292d2d;
+  --crem: #fff9f4;
+  --gold: #c6a66f;
+}
+
+body {
+  background-color: var(--gri);
+  font-family: "Lexend", sans-serif;
+}
+
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  background-color: var(--crem);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  color: var(--crem);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+a {
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a:hover {
+  color: var(--red);
+}
+
+.success-message {
+  color: var(--blue);
+}
+
+.error-message {
+  color: var(--red);
+}
+
+.invalid-link-message {
+  color: var(--red);
+}
+
+/* Add more styles as needed */

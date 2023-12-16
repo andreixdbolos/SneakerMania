@@ -147,7 +147,7 @@ if (isset($_POST['adauga'])) {
                                              
                           <div class="view-reviews">
                             <?php 
-                              echo "<a href='product_reviews.php?id={$fetch_produs['id']}'>View Reviews</a>";
+                              echo "<a href='product_reviews.php?id={$fetch_produs['id']}'>Check Reviews</a>";
                             ?>
                           </div>
                       </div>
