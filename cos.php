@@ -140,6 +140,7 @@ if (isset($_POST['place_order'])) {
                         $email_body .= "<img src='imagini/$product_image.png' alt='$product_name'><br><br>";
                     }
                     
+                    $email_body .= "Total price: $total_price lei<br><br>";
                     $email_body .= "Payment method: Ramburs<br><br>";
                     $mail->Body = $email_body;
     
