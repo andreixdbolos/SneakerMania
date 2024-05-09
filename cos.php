@@ -92,7 +92,7 @@ if (isset($_POST['place_order'])) {
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'bolosandrei4@gmail.com'; // Your Gmail username
-                $mail->Password = 'lniw bnum adri dxxn'; // Your Gmail app password
+                $mail->Password = '-'; // Your Gmail app password
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
                 $mail->Port = 465;
     
